@@ -52,9 +52,9 @@ public class CountInversions {
                 tmp = al.get(j);
                 al.remove(j);
                 al.add(i, tmp);
+                inversions += (point - i);
                 i++;
                 j++;
-                inversions++;
             
             } else {
                 i++;
