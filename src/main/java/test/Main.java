@@ -5,6 +5,10 @@
  */
 package test;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -17,17 +21,28 @@ public class Main {
 
         ArrayList<Integer> testList = new ArrayList();
 
-//        for (int i = 100; i > 0; i--) {
-//            testList.add((int)(Math.random() * 100));
-//        }
-        testList.add(4);
-        testList.add(3);
-        testList.add(2);
-        testList.add(1);
+        try {
+            BufferedReader fr = new BufferedReader(new FileReader("/tmp/IntegerArray.txt"));
+            String line;
+
+            while ((line = fr.readLine()) != null) {
+                testList.add(Integer.parseInt(line));
+            }
+
+            System.out.println("Reading file finished\nNumber of lines: " + testList.size());
+
+        } catch (FileNotFoundException fnfe) {
+            fnfe.printStackTrace();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
         CountInversions ci = new CountInversions();
 
-        int inversions = ci.count(testList);
+        long inversions = ci.count(testList);
+
+        System.out.println("Array sorted: " + TestSort.isSorted(testList));
 
         System.out.println("Number of inversions: " + inversions);
     }

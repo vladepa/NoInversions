@@ -14,13 +14,11 @@ import java.util.List;
  */
 public class CountInversions {
     
-    int inversions = 0;
+    long inversions = 0;
     
-    public int count(ArrayList al) {
+    public long count(ArrayList al) {
         
         divide(al);
-        
-        System.out.println(al);
         
         return inversions;
     }
@@ -36,11 +34,12 @@ public class CountInversions {
         inversions += merge(al);  
     }
 
-    private int merge(List<Integer> al) {
+    private long merge(List<Integer> al) {
         int point = al.size() / 2;
         int i = 0;
         int j = point;
-        int inversions = 0;
+        long inversions = 0;
+        int over = point;
         int tmp;
         
         if (point == 0) {
@@ -52,12 +51,15 @@ public class CountInversions {
                 tmp = al.get(j);
                 al.remove(j);
                 al.add(i, tmp);
-                inversions += (point - i);
+                inversions += over;
                 i++;
                 j++;
             
             } else {
                 i++;
+                over--;
+                if (over < -1) 
+                    System.out.println("ALERT");
             }
         }
         
